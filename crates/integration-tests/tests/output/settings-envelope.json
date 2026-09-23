@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SettingsV4Envelope",
+  "description": "A versioned envelope, where `data` is interpreted according to `version`.",
+  "type": "object",
+  "required": [
+    "data",
+    "version"
+  ],
+  "properties": {
+    "data": {
+      "$ref": "#/definitions/SettingsV4"
+    },
+    "version": {
+      "type": "integer",
+      "format": "uint32",
+      "enum": [
+        4
+      ],
+      "minimum": 0.0
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "SettingsV4": {
+      "type": "object",
+      "required": [
+        "label",
+        "value"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0.0
+        }
+      }
+    }
+  }
+}

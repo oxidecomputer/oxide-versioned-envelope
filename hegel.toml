@@ -1,0 +1,5 @@
+[profiles.ci]
+test_cases = 1000
+
+[profiles.nightly]
+test_cases = 10000
