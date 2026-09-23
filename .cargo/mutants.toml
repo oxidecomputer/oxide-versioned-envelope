@@ -1,0 +1,10 @@
+# cargo-mutants configuration.
+
+additional_cargo_args = ["--all-features"]
+
+exclude_re = [
+    # serde's `Visitor::expecting` mutations are not very interesting.
+    "for (ObjectFieldsVisitor|KeyVisitor|ValidatedVisitor|FieldSeed<T>)>::expecting ",
+    # EnvelopeField::name is only used inside expecting.
+    "EnvelopeField::name ",
+]

@@ -1,0 +1,12 @@
+error[E0080]: evaluation panicked: in `version_set!`, `Backwards::V2 => V1` does not go to a newer version: a step must name a variant listed after it
+  --> tests/ui/version_set_step_backwards.rs:36:1
+   |
+36 | / version_set! {
+37 | |     enum Backwards -> V3Payload {
+38 | |         V1(V1Payload) => V2,
+39 | |         V2(V2Payload) => V1,
+...  |
+42 | | }
+   | |_^ evaluation of `_` failed here
+   |
+   = note: this error originates in the macro `$crate::panic::panic_2021` which comes from the expansion of the macro `version_set` (in Nightly builds, run with -Z macro-backtrace for more info)

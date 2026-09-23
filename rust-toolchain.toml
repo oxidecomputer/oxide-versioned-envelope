@@ -1,0 +1,14 @@
+# We use a specific toolchain revision to ensure our tests - which
+# occasionally depend on specific compiler output - remain stable
+# for all developers until the toolchain is explicitly advanced.
+# The intent is to keep this updated as new stable versions are released.
+
+[toolchain]
+channel = "1.98.1"
+profile = "default"
+# The rust-src component lets rustc quote core's source in diagnostics. Ensure
+# this component is installed so that the trybuild snapshots include those
+# quotes. (We could update the trybuild snapshots to not include those quotes,
+# but then regenerating those snapshots becomes inconvenient if you do have
+# rust-src installed.)
+components = ["rust-src"]
