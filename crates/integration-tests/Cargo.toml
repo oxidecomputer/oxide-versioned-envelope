@@ -1,0 +1,29 @@
+[package]
+name = "integration-tests"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[dependencies]
+hegeltest.workspace = true
+oxide-versioned-envelope.workspace = true
+schemars08 = { workspace = true, features = ["derive"], optional = true }
+serde.workspace = true
+serde_json = { workspace = true, features = ["raw_value"] }
+thiserror.workspace = true
+
+[dev-dependencies]
+expectorate.workspace = true
+static_assertions.workspace = true
+swrite.workspace = true
+
+[features]
+schemars08 = ["dep:schemars08", "oxide-versioned-envelope/schemars08"]
+
+[package.metadata.release]
+release = false
