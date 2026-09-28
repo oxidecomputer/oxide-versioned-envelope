@@ -1,0 +1,12 @@
+error[E0080]: evaluation panicked: in `version_set!`, `NewestSteps::V2 => V2` does not go to a newer version: a step must name a variant listed after it
+  --> tests/ui/version_set_newest_steps.rs:23:1
+   |
+23 | / version_set! {
+24 | |     enum NewestSteps -> V2Payload {
+25 | |         V1(V1Payload) => V2,
+26 | |         V2(V2Payload) => V2,
+27 | |     }
+28 | | }
+   | |_^ evaluation of `_` failed here
+   |
+   = note: this error originates in the macro `$crate::panic::panic_2021` which comes from the expansion of the macro `version_set` (in Nightly builds, run with -Z macro-backtrace for more info)

@@ -1,0 +1,153 @@
+## read_json: not JSON
+input: not json at all
+error: the input could not be parsed as JSON
+  caused by: expected ident at line 1 column 2
+
+## read_json: truncated
+input: {"version":4,"versioned_data":{"value":1}
+error: the input could not be parsed as JSON
+  caused by: EOF while parsing an object at line 1 column 41
+
+## read_json: a lone surrogate
+input: {"version":4,"versioned_data":{},"x":"\ud800"}
+error: the input could not be parsed as JSON
+  caused by: unexpected end of hex escape at line 1 column 45
+
+## read_json: invalid UTF-8
+input: {"version":4,"versioned_data":{},"x":"�"}
+error: the input could not be parsed as JSON
+  caused by: invalid unicode code point at line 1 column 40
+
+## read_json: nesting past the recursion limit
+input: {"version":4,"versioned_data":{},"x":[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]}
+error: the input could not be parsed as JSON
+  caused by: recursion limit exceeded at line 1 column 164
+
+## read_json: a null root
+input: null
+error: the input is valid JSON, but not a versioned envelope: its root is null, not an object
+
+## read_json: an array root
+input: [{"version":4,"versioned_data":{}}]
+error: the input is valid JSON, but not a versioned envelope: its root is an array, not an object
+
+## read_json: a float root
+input: 1.5
+error: the input is valid JSON, but not a versioned envelope: its root is a number, not an object
+
+## read_json: an integer root past u64::MAX
+input: 18446744073709551616
+error: the input is valid JSON, but not a versioned envelope: its root is a number, not an object
+
+## read_json: no version
+input: {"versioned_data":{"value":1}}
+error: the input is valid JSON, but not a versioned envelope: it is an object with no `version` field
+
+## read_json: no data
+input: {"version":4}
+error: the input is valid JSON, but not a versioned envelope: it is an object with no `versioned_data` field
+
+## read_json: neither field
+input: {"meta":{"version":4,"versioned_data":{}}}
+error: the input is valid JSON, but not a versioned envelope: it is an object with neither a `version` nor a `versioned_data` field
+
+## read_json: a repeated version
+input: {"version":4,"version":2,"versioned_data":{}}
+error: the envelope has more than one `version` field
+
+## read_json: repeated data
+input: {"version":4,"versioned_data":{},"versioned_data":{}}
+error: the envelope has more than one `versioned_data` field
+
+## read_json: both repeated
+input: {"version":4,"version":2,"versioned_data":{},"versioned_data":{}}
+error: the envelope has more than one `version` field and more than one `versioned_data` field
+
+## read_json: unknown fields
+input: {"version":4,"meta":{},"versioned_data":{},"Version":4}
+error: the envelope has fields other than `version` and `versioned_data`: "Version", "meta"
+
+## read_json: a repeated unknown field
+input: {"version":4,"x":1,"versioned_data":{},"meta":{},"x":2}
+error: the envelope has fields other than `version` and `versioned_data`: "meta", "x"
+
+## read_json: unknown fields with special characters
+input: {"version":4,"versioned_data":{},"a`b":1,"line\nbreak":2,"\u001b[31m":3}
+error: the envelope has fields other than `version` and `versioned_data`: "\u{1b}[31m", "a`b", "line\nbreak"
+
+## read_json: more unknown fields than are shown
+input: {"version":4,"versioned_data":{},"extra00":0,"extra01":1,"extra02":2,"extra03":3,"extra04":4,"extra05":5,"extra06":6,"extra07":7,"extra08":8,"extra09":9,"extra10":10,"extra11":11}
+error: the envelope has fields other than `version` and `versioned_data`: "extra00", "extra01", "extra02", "extra03", "extra04", "extra05", "extra06", "extra07", and 4 more
+
+## read_json: a version that is a string
+input: {"version":"4","versioned_data":{}}
+error: the envelope's `version` is not a valid version number (an integer from 0 to 4294967295)
+  caused by: invalid type: string "4", expected u32 at line 1 column 14
+
+## read_json: a version of -0
+input: {"version":-0,"versioned_data":{}}
+error: the envelope's `version` is not a valid version number (an integer from 0 to 4294967295)
+  caused by: invalid type: floating point `-0.0`, expected u32 at line 1 column 13
+
+## read_json: a version past u32::MAX
+input: {"version":4294967296,"versioned_data":{}}
+error: the envelope's `version` is not a valid version number (an integer from 0 to 4294967295)
+  caused by: invalid value: integer `4294967296`, expected u32 at line 1 column 21
+
+## read_json: a version newer than the set
+input: {"version":5,"versioned_data":{}}
+error: the envelope's version is 5, but the newest version this reader understands is 4
+
+## read_json: a version older than the set
+input: {"version":0,"versioned_data":{}}
+error: the envelope's version is 0, but the oldest version this reader supports is 1
+
+## read_json: a version in a gap of the set
+input: {"version":3,"versioned_data":{}}
+error: the envelope's version is 3, but this reader understands only versions 1, 2, and 4
+
+## read_json: data that is not the version's payload
+input: {"version":2,"versioned_data":{"value":"seven"}}
+error: the envelope's `versioned_data` is not a version 2 payload
+  caused by: invalid type: string "seven", expected u32 at line 1 column 46
+
+## read_json: a conversion that fails
+input: {"version":2,"versioned_data":{"value":1,"label":null}}
+error: converting a version 2 payload to version 4 failed
+  caused by: missing a label as part of v2 -> v4 upgrade
+
+## read_json: a conversion that fails after an earlier step
+input: {"version":1,"versioned_data":{"warn":60}}
+error: converting a version 1 payload failed at the step from version 2 to version 3
+  caused by: critical threshold 120 exceeds the maximum of 100
+
+## read_untagged_json: no version's payload
+input: 7
+error: the input is not a payload of any version this reader understands:
+  - version 4: invalid type: integer `7`, expected struct SettingsV4 at line 1 column 1
+  - version 2: invalid type: integer `7`, expected struct SettingsV2 at line 1 column 1
+  - version 1: invalid type: integer `7`, expected struct SettingsV1 at line 1 column 1
+
+## read_untagged_json: the same error from every version
+input: {"value":"x"}
+error: the input is not a payload of any version this reader understands:
+  - versions 4, 2, and 1: invalid type: string "x", expected u32 at line 1 column 12
+
+## read_untagged_json: a conversion that fails
+input: {"value":7}
+error: converting a version 2 payload to version 4 failed
+  caused by: missing a label as part of v2 -> v4 upgrade
+
+## read_json_or_untagged: neither
+input: 7
+error: the input is not a versioned envelope (its root is a number, not an object), and reading it as a pre-envelope document failed
+  caused by: the input is not a payload of any version this reader understands:
+  - version 4: invalid type: integer `7`, expected struct SettingsV4 at line 1 column 1
+  - version 2: invalid type: integer `7`, expected struct SettingsV2 at line 1 column 1
+  - version 1: invalid type: integer `7`, expected struct SettingsV1 at line 1 column 1
+
+## read_json_or_else: a refusing fallback
+input: {"value":1}
+error: the input is not a versioned envelope (it is an object with neither a `version` nor a `versioned_data` field), and reading it as a pre-envelope document failed
+  caused by: the legacy reader found no settings in the document
+

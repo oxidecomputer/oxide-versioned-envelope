@@ -1,0 +1,12 @@
+error[E0080]: evaluation panicked: in `version_set!`, `OlderDoesNotStep::V2` has no step, but only the newest variant may end the upgrade: add `=> Newer` to name the variant it converts to
+  --> tests/ui/version_set_older_does_not_step.rs:36:1
+   |
+36 | / version_set! {
+37 | |     enum OlderDoesNotStep -> V3Payload {
+38 | |         V1(V1Payload) => V2,
+39 | |         V2(V2Payload),
+...  |
+42 | | }
+   | |_^ evaluation of `_` failed here
+   |
+   = note: this error originates in the macro `$crate::panic::panic_2021` which comes from the expansion of the macro `version_set` (in Nightly builds, run with -Z macro-backtrace for more info)

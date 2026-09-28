@@ -1,0 +1,25 @@
+error[E0080]: evaluation panicked: a version set's `VersionSet::VERSIONS` must be strictly ascending, oldest version first
+  --> tests/ui/version_set_not_ascending.rs:23:1
+   |
+23 | / version_set! {
+24 | |     enum NotAscending -> V1Payload {
+25 | |         V2(V2Payload) => V1,
+26 | |         V1(V1Payload),
+27 | |     }
+28 | | }
+   | |_^ evaluation of `_` failed inside this call
+   |
+note: inside `assert_version_set_well_formed::<NotAscending>`
+  --> $RUST/core/src/panic.rs
+   |
+   |           $crate::panicking::panic_fmt($crate::const_format_args!($($t)+));
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the failure occurred here
+   |
+  ::: $WORKSPACE/crates/oxide-versioned-envelope/src/versioned.rs
+   |
+   | /         assert!(
+   | |             versions[index - 1] < versions[index],
+   | |             "a version set's `VersionSet::VERSIONS` must be strictly ascending, \
+   | |              oldest version first"
+   | |         );
+   | |_________- in this macro invocation
