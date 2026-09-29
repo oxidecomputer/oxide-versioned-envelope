@@ -363,18 +363,18 @@ an arbitrary reader. In the future, this crate may add a fast path for the
 common case where the fields are in order.
 
 [Dropshot]: https://docs.rs/dropshot
-[`WriteEnvelope`]: https://docs.rs/oxide-versioned-envelope/0.1.0/oxide_versioned_envelope/write/imp/struct.WriteEnvelope.html "struct oxide_versioned_envelope::write::imp::WriteEnvelope"
-[`read_json`]: https://docs.rs/oxide-versioned-envelope/0.1.0/oxide_versioned_envelope/read/imp/fn.read_json.html "fn oxide_versioned_envelope::read::imp::read_json"
-[read_json_or_untagged]: https://docs.rs/oxide-versioned-envelope/0.1.0/oxide_versioned_envelope/read/imp/fn.read_json_or_untagged.html "fn oxide_versioned_envelope::read::imp::read_json_or_untagged"
-[read_json_or_else]: https://docs.rs/oxide-versioned-envelope/0.1.0/oxide_versioned_envelope/read/imp/fn.read_json_or_else.html "fn oxide_versioned_envelope::read::imp::read_json_or_else"
-[`ReadOutput::needs_rewrite`]: https://docs.rs/oxide-versioned-envelope/0.1.0/oxide_versioned_envelope/read/output/struct.ReadOutput.html#method.needs_rewrite "method oxide_versioned_envelope::read::output::ReadOutput::needs_rewrite"
+[`WriteEnvelope`]: https://docs.rs/oxide-versioned-envelope/0.1.1/oxide_versioned_envelope/write/imp/struct.WriteEnvelope.html "struct oxide_versioned_envelope::write::imp::WriteEnvelope"
+[`read_json`]: https://docs.rs/oxide-versioned-envelope/0.1.1/oxide_versioned_envelope/read/imp/fn.read_json.html "fn oxide_versioned_envelope::read::imp::read_json"
+[read_json_or_untagged]: https://docs.rs/oxide-versioned-envelope/0.1.1/oxide_versioned_envelope/read/imp/fn.read_json_or_untagged.html "fn oxide_versioned_envelope::read::imp::read_json_or_untagged"
+[read_json_or_else]: https://docs.rs/oxide-versioned-envelope/0.1.1/oxide_versioned_envelope/read/imp/fn.read_json_or_else.html "fn oxide_versioned_envelope::read::imp::read_json_or_else"
+[`ReadOutput::needs_rewrite`]: https://docs.rs/oxide-versioned-envelope/0.1.1/oxide_versioned_envelope/read/output/struct.ReadOutput.html#method.needs_rewrite "method oxide_versioned_envelope::read::output::ReadOutput::needs_rewrite"
 [`serde_json::Value`]: https://docs.rs/serde_json/1.0.151/serde_json/value/enum.Value.html "enum serde_json::value::Value"
 [`serde_core`]: https://docs.rs/serde_core/1.0.229/serde_core/index.html "mod serde_core"
 [`serde_json`]: https://docs.rs/serde_json/1.0.151/serde_json/index.html "mod serde_json"
 [`Deserialize`]: https://docs.rs/serde_core/1.0.229/serde_core/de/trait.Deserialize.html "trait serde_core::de::Deserialize"
-[`read_json_or_untagged`]: https://docs.rs/oxide-versioned-envelope/0.1.0/oxide_versioned_envelope/read/imp/fn.read_json_or_untagged.html "fn oxide_versioned_envelope::read::imp::read_json_or_untagged"
+[`read_json_or_untagged`]: https://docs.rs/oxide-versioned-envelope/0.1.1/oxide_versioned_envelope/read/imp/fn.read_json_or_untagged.html "fn oxide_versioned_envelope::read::imp::read_json_or_untagged"
 [`serde_json::value::RawValue`]: https://docs.rs/serde_json/1.0.151/serde_json/raw/struct.RawValue.html "struct serde_json::raw::RawValue"
-[`VersionSet::parse`]: https://docs.rs/oxide-versioned-envelope/0.1.0/oxide_versioned_envelope/versioned/trait.VersionSet.html#tymethod.parse "associated function oxide_versioned_envelope::versioned::VersionSet::parse"
+[`VersionSet::parse`]: https://docs.rs/oxide-versioned-envelope/0.1.1/oxide_versioned_envelope/versioned/trait.VersionSet.html#tymethod.parse "associated function oxide_versioned_envelope::versioned::VersionSet::parse"
 [`serde_json::from_slice`]: https://docs.rs/serde_json/1.0.151/serde_json/de/fn.from_slice.html "fn serde_json::de::from_slice"
 <!-- cargo-sync-rdme ]] -->
 

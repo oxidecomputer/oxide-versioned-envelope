@@ -1,6 +1,6 @@
 [package]
 name = "oxide-versioned-envelope"
-version = "0.1.0"
+version = "0.1.1"
 description = "Versioned JSON envelopes."
 readme = "README.md"
 documentation = "https://docs.rs/oxide-versioned-envelope"
