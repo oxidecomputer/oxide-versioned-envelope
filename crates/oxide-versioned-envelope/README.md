@@ -221,6 +221,7 @@ This format is chosen to have the following properties:
   * Sorting keys in byte order, such as with `jq -S` or
     [`serde_json::Value`] without `preserve_order`.
   * Sorting keys by length and then by bytes, such as Postgres’s JSONB.
+  
   Putting `version` before `versioned_data` means that a streaming reader,
   such as a hand-written serde [`Deserialize`] implementation, or a reader
   in another language, can read the version and then the data in one pass
@@ -313,6 +314,7 @@ But this has a few pitfalls:
       * Enable the `preserve_order` feature, which affects
         all other crates in the Cargo dependency graph.
       * Accept that key order might not roundtrip.
+      
       This feature-flag coupling is hard to explain to users; we can do much
       better than this.
 
